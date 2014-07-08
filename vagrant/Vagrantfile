@@ -14,9 +14,10 @@ Vagrant.configure("2") do |config|
 
     #host_config.vm.network :private_network, ip: "192.168.0.1"  
     host_config.vm.network :public_network, bridge: "en0: Wi-Fi (AirPort)" 
+    host_config.vm.synced_folder "puppet/modules",  "/usr/share/puppet/modules"    
     
     host_config.vm.provision :shell, :path => "puppet_bootstrap/centos_6_x.sh"
-  end
+    end
 
 
 end
