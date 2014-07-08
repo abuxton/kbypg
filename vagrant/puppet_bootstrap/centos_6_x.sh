@@ -5,6 +5,10 @@
 set -ex
 #ok first we update
 yum update -y
+#the following is needed for ruby bundler and various gems due to requirements of native gem builds http://www.fedora-tunisia.org/?q=node/44
+yum install -y gcc mysql-devel ruby-devel rubygems 
+yum install -y gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel
+yum install -y gcc-c++
 #lets create some repos and variables
 
 REPO='puppetlabs-release-6-6.noarch' 
