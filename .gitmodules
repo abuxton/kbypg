@@ -1,0 +1,8 @@
+[submodule "vagrant/puppet/modules/puppet-module-skeleton"]
+	path = vagrant/puppet/modules/puppet-module-skeleton
+	url = https://github.com/abuxton/puppet-module-skeleton
+	branch = develop
+[submodule "vagrant/puppet/modules/--force"]
+	path = vagrant/puppet/modules/--force
+	url = https://github.com/abuxton/puppet-module-skeleton
+	branch = develop
