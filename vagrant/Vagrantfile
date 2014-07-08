@@ -1,0 +1,23 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "example_host_base"
+  config.vm.box_url = "https://vagrantcloud.com/puppetlabs/centos-6.5-64-nocm/version/1/provider/virtualbox.box"
+  
+  config.vm.define :host do |host_config|
+    host_config.vm.provider "virtualbox" do |v|
+    host_config.vm.hostname = "host.example.vm" 
+      v.customize ["modifyvm", :id, "--memory", "4096"]
+      v.customize ["modifyvm", :id, "--cpus", "4"]
+    end
+
+    #host_config.vm.network :private_network, ip: "192.168.0.1"  
+    host_config.vm.network :public_network, bridge: "en0: Wi-Fi (AirPort)" 
+    
+    #host_config.vm.provision :shell, :path => "centos_6_x.sh"
+  end
+
+
+end
+

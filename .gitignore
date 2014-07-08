@@ -1,0 +1,11 @@
+*.swp
+.DS_Store
+viewstats.json
+*/_preshow/*
+!*/_preshow/README
+.ruby-version
+stats/*
+**pdf/error.log
+.rake_t_cache
+Gemfile.lock
+.rake_t_cache
