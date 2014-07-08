@@ -9,3 +9,4 @@ stats/*
 .rake_t_cache
 Gemfile.lock
 .rake_t_cache
+**/.vagrant
