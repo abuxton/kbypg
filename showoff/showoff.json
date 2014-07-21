@@ -19,11 +19,29 @@
     "Demo/Module_Skeleton.md",
     "Demo/Bundler.md",
     "Demo/Vagrant.md",
-    "Demo/NTP.md",
-    "Demo/Demo.md",
+    "Demo/Demo_Puppetlabs_Mysql.md",
 
+    "Setup/Section.md",
+    "Setup/Objectives.md",
+    "Setup/Installation.md",
+    "Setup/Nodes.md",
+    "Setup/Demo_NTP.md",
 
-    
+    "Tools/Bundler.md",
+    "Tools/Rake.md",
+    "Tools/Module_Skeleton.md",
+    "Tools/Module_Skeleton_Spec.md",
+    "Tools/Demo.md",
+
+    "Beaker/Section.md",
+    "Beaker/Tests.md",
+    "Beaker/Lint.md",
+    "Beaker/Syntax.md",
+    "Beaker/Rspec.md",
+    "Beaker/What_Why_When.md"
+    "Beaker/Write.md",
+    "Beaker/Demo.md",
+
     "Outro/Section.md",
     "Outro/Summary.md",
     "Outro/Further_Reading.md",
