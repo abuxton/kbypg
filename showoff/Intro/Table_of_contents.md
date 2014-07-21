@@ -1,16 +1,5 @@
-<!SLIDE>
-# title #
-## sub title ##
+<!SLIDE toc>
+# Table of Contents
 
-Content
-
-
-~~~SECTION:notes~~~
-notes for presenter mode
-~~~ENDSECTION~~~
-
-~~~SECTION:handouts~~~
-this will be additional in print
-
-~~~ENDSECTION~~~
+~~~TOC~~~
 
