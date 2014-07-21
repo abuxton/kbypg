@@ -16,6 +16,7 @@
     "Intro/Agenda.md",
 
     "Demo/Section.md",
+    "Demo/Objectives.md",
     "Demo/Module_Skeleton.md",
     "Demo/Bundler.md",
     "Demo/Vagrant.md",
@@ -27,6 +28,8 @@
     "Setup/Nodes.md",
     "Setup/Demo_NTP.md",
 
+    "Tools/Section.md",
+    "Tools/Objectives.md",
     "Tools/Bundler.md",
     "Tools/Rake.md",
     "Tools/Module_Skeleton.md",
@@ -34,6 +37,7 @@
     "Tools/Demo.md",
 
     "Beaker/Section.md",
+    "Beaker/Objectives.md",
     "Beaker/Tests.md",
     "Beaker/Lint.md",
     "Beaker/Syntax.md",
