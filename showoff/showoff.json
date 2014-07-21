@@ -1,0 +1,33 @@
+{
+// Don't put the version in here anymore. It's programatically calculated
+  "name":"Know Before You Push 'Go': Using the Beaker Acceptance Test Framework to Test Your Puppet Module Infrastructure",
+  "shortname": "kbyg",
+  "description": "FIXME",
+  "protected": ["presenter", "onepage", "print"],
+  "user": "abuxton",
+  "password": "kbypg",
+  "version": "0.1.0",
+  "feedback": false,
+  "sections": [
+
+    "Intro/Table_of_contents.md",
+    "Intro/Pre.md",
+    "Intro/Summary.md",
+    "Intro/Agenda.md",
+
+    "Demo/Section.md",
+    "Demo/Module_Skeleton.md",
+    "Demo/Bundler.md",
+    "Demo/Vagrant.md",
+    "Demo/NTP.md",
+    "Demo/Demo",
+
+
+    
+    "Outro/Section.md",
+    "Outro/Summary.md",
+    "Outro/Further_Reading.md",
+    "Outro/Credits.md",
+    "Outro/Thankyou.md"
+  ]
+}

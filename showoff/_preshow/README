@@ -1,0 +1,18 @@
+Place any images you'd like in this folder and they will be displayed any time
+you take a break, or before class, etc. If you'd like to put titles on the
+images, you can use the below text to create a `preshow.json` file.
+
+{
+  "Certification.png":"Puppet Certification Tracks",
+  "Curriculum.png":"Puppet Training Courses",
+  "PuppetLabs.png":"Puppet Fundamentals for System Administrators",
+  "PuppetCustomers.png":"Puppet Customers",
+  "WhatsNewDataLib.png":"PE Data Library",
+  "WhatsNewForge.png":"PE Forge Integration",
+  "WhatsNewImages.png":"New in Puppet Enterprise 2.5",
+  "WhatsNewRAC.png":"PE Role Based Access Control",
+  "WhatsNewTitle.png":"Just announced - PE 2.5",
+  "WhatsNewWIndows.png":"PE - MS Windows Support",
+  "LearnMore.png":"Additional Resources and events"
+}
+

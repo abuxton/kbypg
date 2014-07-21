@@ -1,0 +1,529 @@
+require 'rubygems'
+require 'json'
+
+######### Configure here #########
+URLPREFIX  = 'http://localhost:9090'
+PREFS      = File.expand_path('~/.courseware.json')
+
+# Github repository information
+GH_USER    = 'puppet-training'
+GH_REPO    = 'courseware'
+
+# Issue collector for partners
+COLLECTOR  = 'http://puppetlabs.com/training/issues?s='
+
+## Directories
+OUTPUT     = "pdf"
+STATS      = "stats"
+ROOT       = File.dirname( File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__ )
+
+## For watermarks and PDF generation
+AUTHOR     = 'Puppet Labs'
+SUBJECT    = 'http://puppetlabs.com/learn'
+WATERMARK  = "--style=#{ROOT}/_support/watermark.css"
+SCREENHACK = "--style=#{ROOT}/_support/screen_hack.css --media=screen"
+
+## AWS configuration
+AWS_REGION = ''
+AWS_ACCESS = ''
+AWS_SECRET = ''
+AWS_BUCKET = ''
+##################################
+
+######################################################################
+###### You should not need to change anything below this line! #######
+STDOUT.sync = true
+
+desc "Display usage notice"
+task :default do
+  system("rake -T")
+  puts
+  puts "To choose an alternate presentation file, pass the argument file=<file>."
+  puts "  * For example, 'rake print file=PuppetIntro.json'"
+  puts
+  puts "Classroom Workflow:"
+  puts "  1. Before classroom delivery, run `rake prepare` to update materials."
+  puts "  2. In the classroom, run `rake present` to deliver training."
+  puts "  3. After delivery run `rake submit` to send feedback to Puppet Labs Education."
+  puts
+  puts "* Both prepare and submit require network access"
+  puts
+end
+
+desc "Parse the showoff.json file and load configuration"
+task :parse_showoff do
+  courselevel
+  @presfile    = ENV['file'] || "showoff.json"
+  config      = JSON.parse(File.read(@presfile))
+  username    = config['user']
+  password    = config['password']
+  @classname  = config['name']
+  @shortname  = config['shortname']
+  @prefix     = @shortname.gsub(' ', '_')
+  @authopts   = "--http-user #{username} --http-password #{password} --log #{OUTPUT}/error.log"
+  @pdfopts    = "--pdf-title '#{@classname}' --pdf-author '#{AUTHOR}' --pdf-subject '#{SUBJECT}' --disallow-modify"
+end
+
+desc "Ensure that the Courseware repo is correct and up to date."
+task :update do
+  load_config
+  configure_courseware
+
+  unless system("git fetch courseware")
+    raise "Update failed, perhaps due to network issues. Please ensure your material is up to date before presenting."
+  end
+
+  unless system('git diff-index --quiet HEAD')
+    raise "Your working directory has local modifications. Please stash, reset, or otherwise clean up."
+  end
+end
+
+desc "Prepare the directory for presentation"
+task :prepare => [:update] do
+  FileUtils.rm_rf(STATS)
+  FileUtils.mkdir(STATS)
+
+  puts "Start the presentation by running `rake present`."
+  puts "AFter you have finished the training, please run `rake submit` to send collected stats back to the Edu team."
+end
+
+desc "Fire up Showoff on the correct version of the materials"
+task :present => [:parse_showoff] do
+  load_config
+  calculate_versions
+  version = question("What version is printed at the bottom of the course manuals you received?", @current)
+  version = "#{@classname}-#{version}" unless version =~ /(^#{@classname}-|\.0$)/
+
+  system('git fetch courseware --tags')
+  unless system("git checkout #{version} --quiet")
+    tags      = get_releases()
+    quarterly = get_quarterly()
+
+    puts
+    puts '################################################################################'
+    puts '##             Checking out the correct materials version failed              ##'
+    puts '##----------------------------------------------------------------------------##'
+    printf("## %-74s ##\n", "Last #{tags.size} available versions:")
+    tags.each {|tag| printf("##     %-15s%58s\n", tag, '##') }
+    puts '##                                                                            ##'
+    puts '## Last quarterly release:                                                    ##'
+    printf("##     %-15s%58s\n", quarterly, '##')
+    puts '##                                                                            ##'
+    puts '## Please ensure you have typed in the proper version and have no local       ##'
+    puts '## modifications. If problems persist, you may try a manual git checkout.     ##'
+    puts '################################################################################'
+    puts
+    raise "Checking out #{version} failed"
+  end
+
+  if @config['email'] =~ /@puppetlabs.com$/
+    exec('showoff serve')
+  else
+    exec('showoff serve -f partner.json')
+  end
+end
+
+desc "Submit classroom statistics."
+task :submit => [:parse_showoff] do
+  load_config
+  configure_aws
+  @config['course'] = @classname
+
+  @config['delivery']   = question("What was the name of this training?")
+  @config['eventbrite'] = question("What was the Eventbrite ID of this training (if you know it)?")
+
+  File.open("#{STATS}/metadata.json", 'w') do |f|
+    f.write JSON.pretty_generate(@config)
+  end
+
+  filename = "#{@config['email']}:#{Time.now.to_i}.tar.gz"
+  system("tar -cf #{filename} #{STATS}")
+
+  begin
+    require 'aws/s3'
+
+    AWS::S3::DEFAULT_HOST.replace AWS_REGION
+    AWS::S3::Base.establish_connection!(
+      :access_key_id     => AWS_ACCESS,
+      :secret_access_key => AWS_SECRET
+    )
+    AWS::S3::S3Object.store(filename, open(filename), AWS_BUCKET)
+
+  rescue Exception => e
+    puts
+    puts '################################################################################'
+    puts '##  Please email the collected stats file directly to eduteam@puppetlabs.com  ##'
+    puts '##----------------------------------------------------------------------------##'
+    printf "##  Filename: %-63s ##\n", filename
+    puts '################################################################################'
+    puts
+    raise "Error submitting classroom statistics. (#{e.message})"
+  end
+
+  FileUtils.rm(filename)
+  FileUtils.rm_rf(STATS)
+end
+
+desc "Generate all standard PDF files"
+task :print => [ :handouts, :exercises, :solutions ] do
+  puts "Please do not distribute these files without permission"
+end
+
+desc "Ensure that the printing toolchain is in place."
+task :setup_print do
+  unless system 'prince --version >/dev/null 2>&1'
+    system('open http://www.princexml.com/download/ 2>/dev/null')
+    puts
+    puts '################################################################################'
+    puts '##                       Printing toolchain unavailable.                      ##'
+    puts '##----------------------------------------------------------------------------##'
+    puts '## We use PrinceXML to generate PDF files.                                    ##'
+    puts '## You may install a trial version to generate ad-hoc PDF files in the case   ##'
+    puts '## of emergency. Please be aware that Education is the sole source of         ##'
+    puts '## authorized PDF files, and in no case should you ever distribute these      ##'
+    puts '## without explicit authorization from eduteam@puppetlabs.com.                ##'
+    puts '################################################################################'
+
+    raise 'Please install Prince from http://www.princexml.com/download/ before proceeding'
+  end
+
+  FileUtils.mkdir(OUTPUT) unless File.directory?(OUTPUT)
+end
+
+
+desc "Build handouts PDF"
+task :handouts => [:setup_print, :parse_showoff] do
+  calculate_versions
+  @version ||= @current
+
+  puts "Generating handouts pdf for #{@classname} #{@version}..."
+  filename = "#{OUTPUT}/#{@prefix}#{@suffix}-#{@version}.pdf"
+  system("prince #{URLPREFIX}/print #{@authopts} #{@pdfopts} -o #{filename}")
+end
+
+desc "Build exercises PDF"
+task :exercises => [:setup_print, :parse_showoff] do
+  calculate_versions
+  @version ||= @current
+
+  puts "Generating exercise guide for #{@classname} #{@version}..."
+  filename = "#{OUTPUT}/#{@prefix}#{@suffix}-#{@version}-exercises.pdf"
+  system("prince #{URLPREFIX}/supplemental/exercises #{@authopts} #{@pdfopts} -o #{filename}")
+end
+
+desc "Build solutions PDF"
+task :solutions => [:setup_print, :parse_showoff] do
+  calculate_versions
+  @version ||= @current
+
+  puts "Generating solutions guide for #{@classname} #{@version}..."
+  filename = "#{OUTPUT}/#{@prefix}#{@suffix}-#{@version}-solutions.pdf"
+  system("prince #{URLPREFIX}/supplemental/solutions #{@authopts} #{@pdfopts} -o #{filename}")
+end
+
+desc "Build watermarked PDFs"
+task :watermark => [:parse_showoff] do
+  calculate_versions
+  @version ||= @current
+
+  puts "Generating PDF watermarking..."
+  if password = question("Enter desired password: ") then
+    encrypt = " --encrypt --user-password '#{password}'"
+  else
+    encrypt = ''
+  end
+  @pdfopts << " #{WATERMARK} #{encrypt}"
+  @suffix = "-w"
+
+  Rake::Task["print"].invoke
+end
+
+desc "Build screen PDFs"
+task :screen_pdf => [:parse_showoff] do
+  puts "Generating screen PDF files..."
+  @pdfopts << " #{SCREENHACK}"
+  @suffix = "-screen"
+
+  Rake::Task["print"].invoke
+end
+
+desc "Remove output directories"
+task :clean do
+  FileUtils.rm_rf(OUTPUT)
+  FileUtils.rm_rf(STATS)
+end
+
+desc "Print out latest commit message, suitable for pasting into the release notes and editing"
+task :releasenotes do
+  courselevel
+  calculate_versions
+  str = "### #{@next}\n"
+
+  `git log --pretty="format:%h]X[%aN]X[%aE]X[%cd]X[%s" #{@last}..HEAD`.split("\n").each do |line|
+    commit, author, email, date, title = line.split(']X[')
+
+    # Bail on merge commits, we want to credit the original author
+    next if title =~ /^Merge pull request #/
+
+    # Bail if the commit didn't change this course
+    next unless `git diff --name-only #{commit}^..#{commit} 2>/dev/null` =~ /^#{File.basename(Dir.pwd)}/
+
+    str << "* #{title}\n"
+    str << "    * _[#{author}](#{email}): #{date}_\n"
+    str << "    * _#{commit}_\n"
+  end
+  puts str
+
+  begin
+    IO.popen('pbcopy', 'w') { |f| f.puts str }
+    puts
+    puts "{{ Copied to clipboard }}"
+  rescue
+  end
+end
+
+desc "List obsoleted files; use discretion removing them"
+task :obsolete do
+  courselevel
+  puts 'Unused images:'
+  system('for i in `ls -1 _images`; do if [ "`grep $i showoff.css */*.md`" == "" ]; then echo "\t$i"; fi; done')
+  puts "\n"
+  puts 'Unused slides:'
+  system('for i in `ls -1 */*.md`; do if [ "`grep $i showoff.json`" == "" ]; then echo "\t$i"; fi; done')
+  puts "\n"
+  puts 'This is an extraordinarily simplistic usage scan. Please use discretion when removing unused files.'
+end
+
+desc "Orchestrate a release of the materials."
+task :release => [:parse_showoff] do
+  load_config
+  configure_courseware
+  calculate_versions
+  @version = @next
+
+  provide_bailout("Building a release for #{@classname} version #{@version}.")
+
+  build_release
+
+  system("git tag -a #{@prefix}-#{@version} -m 'Releasing #{@classname} version #{@version}'")
+  system("git push upstream master")
+  system("git push upstream --tags")
+  system("git push courseware master")
+  system("git push courseware --tags")
+
+  puts "Release shipped. Please upload PDF files to printer and break out the bubbly."
+end
+
+desc "Review a course for quarterly release. Should be run from the course directory."
+task :quarterly_review => [:parse_showoff] do
+  configure_courseware
+  calculate_versions
+  @version = @quarter
+
+  puts "Reviewing #{@classname} for a #{@version} quarterly release."
+
+  build_release
+
+  provide_bailout('Please list the people who have signed off on this release in the tag message.')
+  system("git tag -a #{@prefix}-#{@version}")
+end
+
+desc "Orchestrate a quarterly release of the materials. Should be run from repo root."
+task :quarterly_release do
+  toplevel
+  configure_courseware
+  calculate_versions
+  @version = @quarter
+
+  provide_bailout("Creating a #{@version} quarterly release.")
+
+  updated  = []
+  outdated = []
+  missing  = []
+  Dir.glob('*').select do |course|
+    next unless File.directory? course
+    next if course =~ /^_/
+
+    case
+    when ! File.exist?("#{course}/Release-Notes.md")
+      missing << course
+    when File.open("#{course}/Release-Notes.md") { |f| f.grep(/#{@version}/) }.empty?
+      outdated << course
+    else
+      updated << course
+    end
+  end
+
+
+  n = 0
+  puts "  Updated Release Notes    Outdated Release Notes    Missing Release Notes"
+  puts "----------------------------------------------------------------------------"
+  [ updated.size, outdated.size, missing.size ].max.times do
+    printf "  %20s    %20s    %20s\n", updated[n], outdated[n], missing[n]
+
+    n += 1
+  end
+
+  provide_bailout('Commit Release?')
+
+  system("git tag -a #{@version} -m 'Releasing quarterly release version #{@version}'")
+  system("git push upstream master")
+  system("git push upstream --tags")
+  system("git push courseware master")
+  system("git push courseware --tags")
+
+  puts "Quarterly Release shipped. Please upload PDF files to printer and break out the bubbly."
+end
+
+######################################################################
+####################   Helper functions       ########################
+def question(message, default=nil)
+  if default
+    print "#{message} [#{default}] "
+  else
+    print "#{message} "
+  end
+
+  answer = STDIN.gets.strip
+
+  return answer.empty? ? default : answer
+end
+
+def confirm(message)
+  print "#{message} [Y/n]: "
+  [ 'y', 'yes', '' ].include? STDIN.gets.strip.downcase
+end
+
+def provide_bailout(message)
+  print "#{message} Continue? [Y/n]: "
+  raise "User cancelled" unless [ 'y', 'yes', '' ].include? STDIN.gets.strip.downcase
+end
+
+def toplevel
+  message = 'This task should be run from the repository root'
+  raise message unless Dir.pwd == `git rev-parse --show-toplevel`.chomp
+end
+
+def courselevel
+  message = 'This task must be run from within a course directory'
+  raise message unless File.expand_path("#{Dir.pwd}/..") == `git rev-parse --show-toplevel`.chomp
+end
+
+## calculate_versions()
+#
+# This gets a list of *all* tags, then filters them down to only those
+# referencing this class or quarterly releases.
+def calculate_versions
+  tags     = `git for-each-ref --sort='*authordate' --format='%(refname:short)' refs/tags/`.split("\n")
+  @last    = tags.select {|l| l =~ /(^#{@prefix}-|\.0$)/ }.last.gsub(/^#{@prefix}-/, '')
+  @current = @last
+
+  pemajor, major, minor = @last.split('.')
+  minor    = minor.to_i + 1
+  quarter  = major.to_i + 1
+  @next    = "#{pemajor}.#{major}.#{minor}"
+  @quarter = "#{pemajor}.#{quarter}.0"
+end
+
+def get_releases(count=5)
+  tags = `git for-each-ref --sort='*authordate' --format='%(refname:short)' refs/tags/#{@prefix}-*`.split("\n").last(count)
+  tags.collect { |tag| tag.sub(/#{@prefix}-/,'') }
+end
+
+def get_quarterly(count=1)
+  `git for-each-ref --sort='-*authordate' --format='%(refname:short)' refs/tags/*.0 --count=#{count}`.strip
+end
+
+def load_config
+  if not File.file?(PREFS) then
+    puts "Looks like this is your first time running the Courseware Manager. Let's set up your preferences..."
+
+    name  = question("What is your name?")
+    email = question("What is your email address?")
+
+    File.open(PREFS, 'w') do |f|
+      f.write JSON.pretty_generate({ 'name' => name, 'email' => email })
+      puts "Configuration saved as #{PREFS}"
+    end
+  end
+
+  @config = JSON.parse(File.read(PREFS))
+end
+
+def configure_aws
+  unless system('gem list aws-s3 | grep aws-s3 >/dev/null')
+    puts 'The aws-s3 gem is required for posting classroom statistics.'
+    print 'Shall I install required gems for you? [Y/n]: '
+    if [ 'y', 'yes', '' ].include? STDIN.gets.strip.downcase
+      if RUBY_VERSION.to_f < 1.9
+        system('gem install mime-types -v 1.25')
+      end
+
+      system('gem install aws-s3')
+    else
+      raise "Please gem install aws-s3' and run this task again."
+    end
+  end
+end
+
+def configure_courseware
+  # This allows us to support instructors who've checked out their own fork
+  courseware = nil
+  origin = `git config --get remote.origin.url`.chomp
+  if origin =~ /^(git@|https:\/\/)github.com[:\/].*\/#{GH_REPO}(?:-.*)?(?:.git)?$/
+    case $1
+    when 'git@'
+      courseware = "git@github.com:#{GH_USER}/#{GH_REPO}.git"
+    when 'https://'
+      courseware = "https://github.com/#{GH_USER}/#{GH_REPO}.git"
+    end
+  else
+    raise "Your origin does not appear to be configured correctly (got #{origin})."
+  end
+
+  # If we *have* the remote, but it's not correct, then  let's repair it.
+  if `git config --get remote.courseware.url`.chomp != courseware and $?.success?
+    if confirm("Your 'courseware' remote should be #{courseware}. May I correct this?")
+      raise "Error correcting remote." unless system("git remote remove courseware")
+    else
+      raise "Please configure your 'courseware' remote before proceeding."
+    end
+  end
+
+  unless system('git config --get remote.courseware.url > /dev/null')
+    # Add the remote if it doesn't already exist
+    unless system("git remote add courseware #{courseware}")
+      raise "Could not add the 'courseware' remote."
+    end
+  end
+end
+
+def build_release
+  require 'erb'
+
+  raise 'You do not appear to be on the master branch' unless `git symbolic-ref -q --short HEAD`.chomp == 'master'
+  raise "Release notes do not appear to be updated for #{@version}" unless system("grep #{@version} Release-Notes.md >/dev/null")
+  raise "Your working directory has local modifications." unless system('git diff-index --quiet HEAD')
+
+  system('git fetch upstream --tags')
+  system('git show --name-status')
+  provide_bailout('If the commit message displayed is not correct, then abort now.')
+
+  puts "Releasing version #{@version}..."
+  File.open('showoff.css', 'w') do |f|
+    puts "Updating css with versioning tag"
+    f.write ERB.new(File.read("#{ROOT}/_support/showoff.css.erb")).result(binding)
+  end
+
+  puts 'Creating partner presentation'
+  partner = JSON.parse(File.read(@presfile))
+  partner['issues'] = COLLECTOR
+  raise 'Partner patch failed!' unless File.write('partner.json', JSON.pretty_generate(partner))
+
+  Rake::Task[:print].invoke
+  system("open pdf >/dev/null 2>&1")
+
+  provide_bailout('Please inspect the generated PDF files and abort if corrections must be made.')
+
+  system("git commit partner.json showoff.css -m 'Updating for #{@classname} release #{@version}'")
+end
