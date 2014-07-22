@@ -2,16 +2,16 @@
 # Objective of this Demo #
 ## Demonstrating reusable components of Beaker and some valuable companion tool.##
 
-* Puppet module tool, and module skeletons
+* Puppetlabs/beaker
 * Reusability with Bundler
-* Testing environments with nodes and Vagrant
+* Testing environments,  nodes and Vagrant
+* rspec_beaker tests
 * A working demonstration, Puppetlabs-mysql
 
 
 ~~~SECTION:notes~~~
 Questions?
 
-  * Who is aware of Puppet module skeleton?
   * Who as used bundler?
   * Who has used Vagrant?
   * Who uses forge modules, or supported modules?
