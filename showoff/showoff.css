@@ -35,6 +35,11 @@
     body > #preso > .full-page {
       background: none !important;
   }
+    .content  h2 {
+    width:90%;
+    align-content: center;
+  }
+
 }
 
 @media all {
