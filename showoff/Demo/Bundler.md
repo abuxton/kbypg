@@ -1,12 +1,15 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Installation  #
+## Bundler makes it easy ##
 
-Content
+`Bundler provides a consistent environment for Ruby projects by tracking and installing the exact gems and versions that are needed.` - [bundler](http://bundler.io/)
 
+
+You don't have to use it, but it does make your life easier, repeatable and more dependable.
 
 ~~~SECTION:notes~~~
-notes for presenter mode
+[bundler](http://bundler.io/)
+
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
