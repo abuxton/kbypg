@@ -1,8 +1,11 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Workshop Activities #
+## What are we going to do? ##
 
-Content
+* Demo, how hard can it be?
+* Tools to make your lives easier, we hope!
+* Setup, or installation laying teh ground work.
+* Beaker, well this is what your interested in.
 
 
 ~~~SECTION:notes~~~

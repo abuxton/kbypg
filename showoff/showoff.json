@@ -22,12 +22,6 @@
     "Demo/Vagrant.md",
     "Demo/Demo_Puppetlabs_Mysql.md",
 
-    "Setup/Section.md",
-    "Setup/Objectives.md",
-    "Setup/Installation.md",
-    "Setup/Nodes.md",
-    "Setup/Demo_NTP.md",
-
     "Tools/Section.md",
     "Tools/Objectives.md",
     "Tools/Bundler.md",
@@ -35,6 +29,13 @@
     "Tools/Module_Skeleton.md",
     "Tools/Module_Skeleton_Spec.md",
     "Tools/Demo.md",
+
+    "Setup/Section.md",
+    "Setup/Objectives.md",
+    "Setup/Installation.md",
+    "Setup/Nodes.md",
+    "Setup/Demo_NTP.md",
+
 
     "Beaker/Section.md",
     "Beaker/Objectives.md",
