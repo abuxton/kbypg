@@ -4,7 +4,7 @@
 
 * Demo, how hard can it be?
 * Tools to make your lives easier, we hope!
-* Setup, or installation laying teh ground work.
+* Setup, or installation laying the ground work.
 * Beaker, well this is what your interested in.
 
 
