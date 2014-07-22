@@ -18,12 +18,18 @@
     body > #preso > .slide {
 /* Allows the height to vary by a handful of pixels based on what browser chrome is visible. */
         height: 100%;
-        background: #ffffff url(_images/puppetconf_footer2014.png)  no-repeat bottom right;
+        background: #ffffff url(_images/puppetconf-footer2014.png)  no-repeat bottom right;
 /* static heights to fit different browser configurations. Safari values. */
 /*      height: 706px;    /* allows room for the tab bar and status bar */
 /*      height: 728px;    /* allows room for the status bar only */
 /*      height: 744px;    /* allows room for neither bar */
     }
+}
+@media screen{
+    body > #preso,
+    body > #preso > .full-page {
+      background: none !important;
+  }
 }
 
 @media all {
