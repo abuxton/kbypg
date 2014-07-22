@@ -1,16 +1,16 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Our First Demo! #
+## How hard can it be? and what is involved? ##
 
-Content
+
 
 
 ~~~SECTION:notes~~~
-notes for presenter mode
+Explain that they are about to see, and what it needs to get there, then we rinse and repeat as the workshop over the following content.
+
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
 
 ~~~ENDSECTION~~~
 
