@@ -1,16 +1,15 @@
-<!SLIDE>
-# title #
-## sub title ##
+<!SLIDE  >
+# Know Before You Push 'Go' #
+## Using the Beaker Acceptance Test Framework to Test Your Puppet Module Infrastructure  ##
 
-Content
 
 
 ~~~SECTION:notes~~~
-notes for presenter mode
+
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
+
 
 ~~~ENDSECTION~~~
 
