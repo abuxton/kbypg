@@ -22,6 +22,17 @@
     "Demo/Vagrant.md",
     "Demo/Demo_Puppetlabs_Mysql.md",
 
+    "Beaker/Section.md",
+    "Beaker/Objectives.md",
+    "Beaker/Tests.md",
+    "Beaker/Lint.md",
+    "Beaker/Syntax.md",
+    "Beaker/Rspec.md",
+    "Beaker/What_Why_When.md",
+    "Beaker/Write.md",
+    "Beaker/Demo.md",
+
+
     "Tools/Section.md",
     "Tools/Objectives.md",
     "Tools/Bundler.md",
@@ -35,17 +46,6 @@
     "Setup/Installation.md",
     "Setup/Nodes.md",
     "Setup/Demo_NTP.md",
-
-
-    "Beaker/Section.md",
-    "Beaker/Objectives.md",
-    "Beaker/Tests.md",
-    "Beaker/Lint.md",
-    "Beaker/Syntax.md",
-    "Beaker/Rspec.md",
-    "Beaker/What_Why_When.md",
-    "Beaker/Write.md",
-    "Beaker/Demo.md",
 
     "Outro/Section.md",
     "Outro/Summary.md",
