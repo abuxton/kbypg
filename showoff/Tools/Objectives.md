@@ -1,8 +1,11 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Objectives #
+## Lets introduce some usefull things!##
 
-Content
+* Bundler
+* Rake
+* Module Skeletons
+
 
 
 ~~~SECTION:notes~~~
