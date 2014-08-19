@@ -1,8 +1,7 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Beaker #
+## Rspec testing and a whole lot more! ##
 
-Content
 
 
 ~~~SECTION:notes~~~

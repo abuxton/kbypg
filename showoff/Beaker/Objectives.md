@@ -1,8 +1,11 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Objectives #
+## Lets discuss what makes up Beaker! ##
 
-Content
+* Test environments with nodesets
+* Command line tool
+* DSL
+* rspec-beaker
 
 
 ~~~SECTION:notes~~~
