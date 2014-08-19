@@ -1,16 +1,35 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Module Skeleton Spec folder #
+## Lets have some more reusability goodness!##
+So what else? how about all some templated tests, spec helpers and nodesets! 
+[https://github.com/abuxton/module_skeleton](https://github.com/abuxton/module_skeleton)
 
-Content
+
+    @@@ bash
+      #tree .puppet/var/puppet-module/skeleton/spec
+          ├── acceptance
+          │   ├── class_spec.rb.erb
+          │   └── nodesets
+          │       ├── centos-64-x64.yml
+          │       ├── default.yml
+          │       └── ubuntu-server-12042-x64.yml
+          ├── classes
+          │   ├── coverage_spec.rb
+          │   └── example_spec.rb.erb
+          ├── spec_helper.rb
+          └── spec_helper_acceptance.rb.erb
 
 
 ~~~SECTION:notes~~~
-notes for presenter mode
+
+credits:
+[https://forge.puppetlabs.com/supported](https://forge.puppetlabs.com/supported)
+[https://github.com/garethr/puppet-module-skeleton](https://github.com/garethr/puppet-module-skeleton)
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
-
+credits:
+[https://github.com/garethr/puppet-module-skeleton](https://github.com/garethr/puppet-module-skeleton)
+[https://forge.puppetlabs.com/supported](https://forge.puppetlabs.com/supported)
 ~~~ENDSECTION~~~
 
