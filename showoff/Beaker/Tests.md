@@ -1,16 +1,28 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Test Environments #
+## SUTs (Systems Under Test) ##
 
-Content
+    @@@yaml
+      HOSTS:
+        centos-64-x64:
+          roles:
+            - master
+          platform: el-6-x86_64
+          box : centos-64-x64-vbox4210-nocm
+          box_url : http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box
+          hypervisor : vagrant
+      CONFIG:
+        type: foss
 
+Supports  ec2, Docker, virtual machines, and physical hardware.
+
+.yaml file for configuration and reusability, with default support for install at build time, both PE and Poss.
 
 ~~~SECTION:notes~~~
-notes for presenter mode
+
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
-
+[Creating A Test Environment](https://github.com/puppetlabs/beaker/wiki/Creating-A-Test-Environment)
 ~~~ENDSECTION~~~
 

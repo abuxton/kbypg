@@ -2,11 +2,10 @@
 # Objectives #
 ## Lets discuss what makes up Beaker! ##
 
-* Test environments with nodesets
-* Command line tool
+* Test environments with nodesets.
 * DSL
 * rspec-beaker
-
+* Command line
 
 ~~~SECTION:notes~~~
 notes for presenter mode
