@@ -24,8 +24,8 @@
 
     "Beaker/Section.md",
     "Beaker/Objectives.md",
-    "Beaker/Tests.md",
-    "Beaker/Lint.md",
+    "Beaker/SUTs.md",
+    "Beaker/DSL.md",
     "Beaker/Syntax.md",
     "Beaker/Rspec.md",
     "Beaker/What_Why_When.md",
