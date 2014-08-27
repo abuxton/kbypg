@@ -1,16 +1,19 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Command line Interface #
+## Some times you just want to run the test! ##
 
-Content
+I don't believe any thing ever turned up polished?
+
+Beaker is no exception and so you can choose to run your tests individually and incriment them with out the overheads of all the set up.
+
+So the command line client is always available https://github.com/puppetlabs/beaker/wiki/The-Command-Line.
+
 
 
 ~~~SECTION:notes~~~
-notes for presenter mode
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
-
+https://github.com/puppetlabs/beaker/wiki/The-Command-Line
 ~~~ENDSECTION~~~
 
