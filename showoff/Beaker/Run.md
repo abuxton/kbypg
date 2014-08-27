@@ -1,16 +1,24 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Running the tests #
+## Pressing Go before know! ##
 
-Content
+So how do we run the tests? lets start with 
+#
+    @@@ Shell
+      # beaker --help 
+#
+or preferably
+#
+    @@@ Shell
+      # bundle exec rspec spec/<testfolder>
+#
+The latter line is the current prefered usage, and what we invloked in the demo.
 
 
 ~~~SECTION:notes~~~
-notes for presenter mode
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
 
 ~~~ENDSECTION~~~
 
