@@ -1,6 +1,6 @@
 <!SLIDE>
 # Bundler #
-## Managing Rubyaplication dependancys ##
+## Managing Ruby application dependancys ##
 
 Things you want to do;
 
