@@ -4,7 +4,7 @@
 
 `Rake  is a Make-like program implemented in Ruby`!
 
-What does that mean for us, well in this case it just means were going to use it top provide some ruby based extensions and fucntionality, and also to make use of functionality in dependancies of beaker.
+What does that mean for us, well in this case it just means were going to use it to provide some Ruby based extensions and functionality, and also to make use of functionality in dependencies of Beaker.
 
 [https://rubygems.org/gems/rake](https://rubygems.org/gems/rake)
 

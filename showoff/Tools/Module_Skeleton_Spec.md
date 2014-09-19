@@ -5,7 +5,7 @@ So what else? how about all some templated tests, spec helpers and nodesets!
 [https://github.com/abuxton/module_skeleton](https://github.com/abuxton/module_skeleton)
 
 
-    @@@ bash
+    @@@ Sh
       #tree .puppet/var/puppet-module/skeleton/spec
           ├── acceptance
           │   ├── class_spec.rb.erb

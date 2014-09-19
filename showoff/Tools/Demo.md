@@ -1,16 +1,19 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Demo Module Skeleton #
+## So how do we use it! ##
 
-Content
+* Lets put the skeleton in place
+* Lets generate a module
+* Lets prove the tests
 
 
 ~~~SECTION:notes~~~
-notes for presenter mode
+Once installed `puppet apply -e "class{ 'module_skeleton::install': users => ['abuxton'],}"`
+
+
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
-
+All the command you need are in the slides or these notes.
 ~~~ENDSECTION~~~
 

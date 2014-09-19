@@ -38,6 +38,7 @@
     "Tools/Objectives.md",
     "Tools/Bundler.md",
     "Tools/Rake.md",
+    "Tools/Puppet_Module_Skeleton.md",
     "Tools/Module_Skeleton.md",
     "Tools/Module_Skeleton_Spec.md",
     "Tools/Demo.md",
