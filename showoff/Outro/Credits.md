@@ -1,6 +1,6 @@
 <!SLIDE>
 # Credits #
-## Heres all teh links. ##
+## Heres all the links. ##
 
 *fixme* link to beaker doc
 *fixme* link to gareths blog
