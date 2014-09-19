@@ -1,5 +1,5 @@
 <!SLIDE>
-# Thankyou #
+# Thank you #
 ## I hope you learned a little something to take away. ##
 
 
