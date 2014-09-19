@@ -1,8 +1,13 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Installation #
+## Putting the pieces in place. ##
 
-Content
+So what do we need for this?
+
+* Puppet.
+* Vagrant.
+* Bundler.
+* Module Skeleton.
 
 
 ~~~SECTION:notes~~~
@@ -10,7 +15,6 @@ notes for presenter mode
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
 
 ~~~ENDSECTION~~~
 

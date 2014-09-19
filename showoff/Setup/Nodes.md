@@ -1,8 +1,16 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Nodes or SUTs #
+## Lets virtualise some hardware ##
 
-Content
+We  need nodes to test against, or servers under test (SUT). The module skeleton now provides those too. 
+
+    @@@ Sh
+        tree ~/.puppet/var/puppet-module/skeleton/spec/acceptance/nodesets/
+        /Users/abuxton/.puppet/var/puppet-module/skeleton/spec/acceptance/nodesets/
+        ├── centos-64-x64.yml
+        ├── default.yml
+        └── ubuntu-server-12042-x64.yml
+
 
 
 ~~~SECTION:notes~~~

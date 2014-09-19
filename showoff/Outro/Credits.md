@@ -1,16 +1,17 @@
 <!SLIDE>
-# title #
-## sub title ##
+# Credits #
+## Heres all teh links. ##
 
-Content
+*fixme* link to beaker doc
+*fixme* link to gareths blog
+*fixme* link to forge
+*fixme* charlottes site if i use that pic 
 
 
 ~~~SECTION:notes~~~
-notes for presenter mode
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
 
 ~~~ENDSECTION~~~
 
