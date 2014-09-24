@@ -10,9 +10,10 @@ In summary, We actually managed 3 workshops in one.
 
 What do we do with all this. 
 
-* Read some more *fixme* beaker url
-* Run  some tests *fixme* url to forge supported list.
-* Run this at home and try extend it into your working day *url* my presentation on git 
+* Read some more Beaker, [https://github.com/puppetlabs/beaker/wiki](https://github.com/puppetlabs/beaker/wiki)
+* Run  some tests [https://forge.puppetlabs.com/modules?endorsements=supported](https://forge.puppetlabs.com/modules?endorsements=supported) to forge supported list.
+* Run this at home and try extend it into your working day.
+* [https://github.com/abuxton/kbypg](https://github.com/abuxton/kbypg) my presentation on git 
 
 
 
