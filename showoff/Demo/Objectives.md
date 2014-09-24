@@ -2,11 +2,11 @@
 # Objective of this Demo #
 ## Demonstrating reusable components of Beaker and some valuable companion tool.##
 
-* Puppetlabs/beaker
-* Testing environments,  nodes and Vagrant
-* rspec_beaker tests
+* Puppetlabs/Beaker.
+* Testing environments,  nodes and Vagrant.
+* rspec_beaker tests.
 * Reusability features.
-* A working demonstration, Puppetlabs-mysqli
+* A working demonstration, Puppetlabs-mysql.
 * Using supported modules.
 
 
