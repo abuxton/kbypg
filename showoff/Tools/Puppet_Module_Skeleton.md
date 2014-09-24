@@ -19,14 +19,12 @@ When you run `puppet module generate name-module` you get given the following.
         └── tests
             └── init.pp
 
-##Were not sure this is enough!
+##We are not sure this is enough! But its more than you used to get.
 
 ~~~SECTION:notes~~~
-notes for presenter mode
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
 
 ~~~ENDSECTION~~~
 
