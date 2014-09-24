@@ -16,7 +16,7 @@
 
 Supports  ec2, Docker, virtual machines, and physical hardware.
 
-.yaml file for configuration and reusability, with default support for install at build time, both PE and Poss.
+Yaml  for configuration and reuse, with default support for install at build time, can utilise both both PE and Poss.
 
 ~~~SECTION:notes~~~
 
