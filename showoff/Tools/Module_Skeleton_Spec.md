@@ -2,7 +2,7 @@
 # Module Skeleton Spec folder #
 ## Lets have some more reusability goodness!##
 So what else? How about all some templated tests, spec helpers and nodesets! 
-[morethan seven excellent blog] (http://www.morethanseven.net/2014/02/05/a-template-for-puppet-modules/)
+[More Than Seven] (http://www.morethanseven.net/2014/02/05/a-template-for-puppet-modules/) Garetsh excellent blog post on teh subject.
 
     @@@ Sh
       #tree .puppet/var/puppet-module/skeleton/spec
