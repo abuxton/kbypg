@@ -2,7 +2,7 @@
 # Beaker-Rspec #
 ##  Same as all the rest but different##
 
-* Exposes some new variables for Beaker, related to both Beaker and its interaction with your SUT.
+* Exposes some new variables for Beaker, related to both Beaker and its interaction with your SUT or nodeset.
 * Reflects the RSpec you are or are not familiar with, so easy to pick up and lots of sources for guidance and examples.
 
 #
