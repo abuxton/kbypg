@@ -1,9 +1,8 @@
 <!SLIDE>
-# title #
-## sub title ##
+# So Another Demo #
+## I don't think so lets just look at what we did again. ##
 
-Content
-
+<img src='../_images/beaker_screenshot_test.png' width='80%' />
 
 ~~~SECTION:notes~~~
 notes for presenter mode
