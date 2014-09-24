@@ -2,7 +2,7 @@
 # So Another Demo #
 ## I don't think so lets just look at what we did again. ##
 
-<img src='../_images/beaker_screenshot_test.png' width='80%' />
+<img src='../_images/beaker_screenshot_test.png' width='70%' />
 
 ~~~SECTION:notes~~~
 notes for presenter mode
