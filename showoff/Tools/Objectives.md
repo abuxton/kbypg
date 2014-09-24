@@ -1,6 +1,6 @@
 <!SLIDE>
 # Objectives #
-## Lets introduce some usefull things!##
+## Lets introduce some useful things!##
 
 * Bundler.
 * Rake.
