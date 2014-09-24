@@ -3,16 +3,15 @@
 ## Lets discuss what makes up Beaker! ##
 
 * Test environments with nodesets.
-* DSL
-* rspec-beaker
-* Command line
+* Domain Spcecific language (DSL).
+* rspec-beaker.
+* Command line tool.
 
 ~~~SECTION:notes~~~
-notes for presenter mode
+Just Beaker, not the tooling that comes later.
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
 
 ~~~ENDSECTION~~~
 
