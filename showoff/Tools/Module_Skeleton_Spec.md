@@ -1,9 +1,8 @@
 <!SLIDE>
 # Module Skeleton Spec folder #
 ## Lets have some more reusability goodness!##
-So what else? how about all some templated tests, spec helpers and nodesets! 
-[https://github.com/abuxton/module_skeleton](https://github.com/abuxton/module_skeleton)
-
+So what else? How about all some templated tests, spec helpers and nodesets! 
+[morethan seven excellent blog] (http://www.morethanseven.net/2014/02/05/a-template-for-puppet-modules/)
 
     @@@ Sh
       #tree .puppet/var/puppet-module/skeleton/spec
@@ -25,11 +24,15 @@ So what else? how about all some templated tests, spec helpers and nodesets!
 credits:
 [https://forge.puppetlabs.com/supported](https://forge.puppetlabs.com/supported)
 [https://github.com/garethr/puppet-module-skeleton](https://github.com/garethr/puppet-module-skeleton)
+
+[https://github.com/abuxton/module_skeleton](https://github.com/abuxton/module_skeleton)
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
 credits:
 [https://github.com/garethr/puppet-module-skeleton](https://github.com/garethr/puppet-module-skeleton)
 [https://forge.puppetlabs.com/supported](https://forge.puppetlabs.com/supported)
+
+[https://github.com/abuxton/module_skeleton](https://github.com/abuxton/module_skeleton)
 ~~~ENDSECTION~~~
 

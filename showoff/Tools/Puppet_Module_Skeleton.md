@@ -22,6 +22,7 @@ When you run `puppet module generate name-module` you get given the following.
 ##We are not sure this is enough! But its more than you used to get.
 
 ~~~SECTION:notes~~~
+[github](https://github.com/puppetlabs/puppet-module-tool/blob/f37170eff4cf2fea876c0c754cae71fddc0d6989/lib/puppet/module/tool/skeleton.rb)
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
