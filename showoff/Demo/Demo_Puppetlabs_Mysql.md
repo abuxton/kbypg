@@ -4,8 +4,8 @@
 
 [Puppetlabs-mysql](https://forge.puppetlabs.com/puppetlabs/mysql/2.3.1) is being used for the demo.
 
-* Puppetlabs supported module
-* Built in Gemfile for Bundler
+* Puppetlabs supported module.
+* Built in Gemfile for Bundler.
 * Default use of centos-64 for nodesets/default.yaml using Vagrant.
 * Examples of classes, acceptance, and unit test. 
 
