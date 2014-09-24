@@ -3,10 +3,11 @@
 ## Demonstrating reusable components of Beaker and some valuable companion tool.##
 
 * Puppetlabs/beaker
-* Reusability with Bundler
 * Testing environments,  nodes and Vagrant
 * rspec_beaker tests
-* A working demonstration, Puppetlabs-mysql
+* Reusability features.
+* A working demonstration, Puppetlabs-mysqli
+* Using supported modules.
 
 
 ~~~SECTION:notes~~~
@@ -19,7 +20,6 @@ Questions?
 ~~~ENDSECTION~~~
 
 ~~~SECTION:handouts~~~
-this will be additional in print
 
 ~~~ENDSECTION~~~
 
