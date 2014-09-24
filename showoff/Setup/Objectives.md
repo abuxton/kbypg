@@ -4,10 +4,9 @@
 
 Lets use what we've seen, to go from nothing to test.
 
-* Install the module skeleton
-* Generate a module
-* Run the initial test
-* Maybe we'll even add an additional test!
+* Install the module skeleton.
+* Generate a module.
+* Run the initial tests
 
 ~~~SECTION:notes~~~
 notes for presenter mode
